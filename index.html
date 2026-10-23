@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportFit | Máximo Rendimiento Deportivo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Montserrat & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,700;0,800;0,900;1,800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            900: '#0B132B', /* Azul Marino Ultra Oscuro */
+                            800: '#1C2541', /* Azul Marino Profundo */
+                            700: '#2A385B', /* Azul Deportivo Medio */
+                        },
+                        sportBlue: {
+                            DEFAULT: '#0055FF', /* Azul Deportivo Brillante */
+                            electric: '#00D2FF', /* Azul Eléctrico Neón */
+                            light: '#3A86FF'
+                        },
+                        lead: {
+                            900: '#12161A', /* Plomo Ultra Oscuro */
+                            800: '#1E232A', /* Plomo Tarjeta/Fondo */
+                            700: '#2D343F', /* Plomo Borde/Sombra */
+                            500: '#6C7A89', /* Plomo Texto Neutro */
+                            300: '#A0ABC0', /* Plomo Claro */
+                            100: '#E2E8F0'  /* Plomo Metalizado Claro */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0B132B;
+            color: #E2E8F0;
+            font-family: 'Inter', sans-serif;
+        }
+        .glow-blue {
+            box-shadow: 0 0 25px rgba(0, 85, 255, 0.4);
+        }
+        .glow-blue-hover:hover {
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.6);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1E232A;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #3A86FF;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-navy-900 text-lead-100 flex flex-col min-h-screen selection:bg-sportBlue-electric selection:text-black">
+
+    <!-- Banner Promocional -->
+    <div class="bg-gradient-to-r from-navy-800 via-sportBlue to-navy-800 text-white text-xs sm:text-sm font-bold py-2 px-4 text-center font-display tracking-wider uppercase flex items-center justify-center gap-2 border-b border-sportBlue/30">
+        <i class="fa-solid fa-trophy text-sportBlue-electric animate-bounce"></i>
+        <span>ENVÍO GRATIS EN COMPRAS MAYORES A $80 | CÓDIGO: <span class="text-sportBlue-electric underline">SPORTFIT2026</span></span>
+    </div>
+
+    <!-- 1. Header / Navegación -->
+    <header class="sticky top-0 z-40 bg-gradient-to-r from-red-500 via-blue-500 to-green-500 backdrop-blur-md border-b border-lead-700/60 transition-all duration-300" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            
+            <!-- Logo SportFit -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 bg-gradient-to-br from-sportBlue to-sportBlue-electric rounded-xl flex items-center justify-center text-white font-display font-black text-2xl shadow-lg transform -skew-x-12 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-bolt-lightning text-xl transform skew-x-12"></i>
+                </div>
+                <span class="font-display font-black text-2xl tracking-tight uppercase italic text-white">
+                    SPORT<span class="text-transparent bg-clip-text bg-gradient-to-r from-sportBlue-light to-sportBlue-electric">FIT</span>
+                </span>
+            </a>
+
+            <!-- Navegación Escritorio -->
+            <nav class="hidden lg:flex items-center space-x-8 font-display font-bold text-xs uppercase tracking-wider text-lead-300">
+                <a href="#inicio" class="hover:text-sportBlue-electric transition-colors">Inicio</a>
+                <a href="#categorias" class="hover:text-sportBlue-electric transition-colors">Categorías</a>
+                <a href="#productos" class="hover:text-sportBlue-electric transition-colors">Productos</a>
+                <a href="#ofertas" class="hover:text-sportBlue-electric transition-colors text-sportBlue-electric flex items-center gap-1.5">
+                    <i class="fa-solid fa-fire text-xs"></i> Ofertas
+                </a>
+                <a href="#contacto" class="hover:text-sportBlue-electric transition-colors">Contacto</a>
+            </nav>
+
+            <!-- Acciones / Buscador / Carrito -->
+            <div class="flex items-center gap-3">
+                <!-- Buscador en tiempo real -->
+                <div class="relative hidden sm:block w-48 lg:w-64">
+                    <input type="text" id="search-input" placeholder="Buscar productos..." 
+                           class="w-full bg-lead-800 text-xs text-white placeholder-lead-500 rounded-full py-2.5 pl-4 pr-10 border border-lead-700 focus:outline-none focus:border-sportBlue-electric transition-colors">
+                    <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3 text-lead-500 text-xs"></i>
+                </div>
+
+                <!-- Botón Carrito -->
+                <button id="cart-btn" onclick="toggleCartDrawer()" class="relative p-3 text-lead-300 hover:text-sportBlue-electric bg-lead-800/80 hover:bg-lead-700 rounded-xl transition-all border border-lead-700" title="Carrito de compras">
+                    <i class="fa-solid fa-cart-shopping text-base"></i>
+                    <span id="cart-count" class="absolute -top-1.5 -right-1.5 bg-sportBlue-electric text-navy-900 font-extrabold text-[11px] w-5 h-5 rounded-full flex items-center justify-center shadow-md">0</span>
+                </button>
+
+                <!-- Menú Hamburguesa Móvil -->
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden p-2.5 text-lead-300 hover:text-sportBlue-electric bg-lead-800 rounded-xl border border-lead-700">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Desplegable Móvil -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-navy-800 border-b border-lead-700 px-6 py-5 space-y-3 font-display uppercase font-bold text-xs tracking-wider">
+            <div class="mb-3">
+                <input type="text" id="search-input-mobile" placeholder="Buscar en SportFit..." 
+                       class="w-full bg-lead-900 text-xs text-white placeholder-lead-500 rounded-lg py-2.5 px-4 border border-lead-700 focus:outline-none focus:border-sportBlue-electric">
+            </div>
+            <a href="#inicio" onclick="toggleMobileMenu()" class="block hover:text-sportBlue-electric py-1.5">Inicio</a>
+            <a href="#categorias" onclick="toggleMobileMenu()" class="block hover:text-sportBlue-electric py-1.5">Categorías</a>
+            <a href="#productos" onclick="toggleMobileMenu()" class="block hover:text-sportBlue-electric py-1.5">Productos</a>
+            <a href="#ofertas" onclick="toggleMobileMenu()" class="block text-sportBlue-electric py-1.5">Ofertas Especiales</a>
+            <a href="#contacto" onclick="toggleMobileMenu()" class="block hover:text-sportBlue-electric py-1.5">Contacto</a>
+        </div>
+    </header>
+
+    <!-- 2. Hero Section / Banner Principal -->
+    <section id="inicio" class="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-navy-900 via-navy-800 to-lead-900 border-b border-lead-700">
+        <!-- Overlay dinámico -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1920&q=80" 
+                 alt="Atleta entrenando" 
+                 class="w-full h-full object-cover object-center opacity-25 mix-blend-luminosity">
+            <div class="absolute inset-0 bg-gradient-to-r from-navy-900 via-navy-900/80 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-navy-900 via-transparent to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+            <div class="max-w-3xl">
+                <span class="inline-flex items-center gap-2 bg-sportBlue/10 border border-sportBlue-electric/40 text-sportBlue-electric text-xs font-bold uppercase tracking-widest py-2 px-4 rounded-full mb-6 backdrop-blur-md">
+                    <i class="fa-solid fa-shield-halved"></i> COLECCIÓN PROFESIONAL 2026
+                </span>
+                <h1 class="font-display font-black text-4xl sm:text-6xl lg:text-7xl uppercase italic leading-none tracking-tight text-white mb-6">
+                    MÁXIMO <span class="text-transparent bg-clip-text bg-gradient-to-r from-sportBlue-electric via-sportBlue-light to-lead-100">RENDIMIENTO</span> <br>
+                    SIN LIMITACIONES
+                </h1>
+                <p class="text-lead-300 text-base sm:text-lg mb-8 font-normal leading-relaxed max-w-xl">
+                    Equípate con indumentaria técnica y accesorios de alta precisión diseñados en tonos plomo y azul para potenciar tu fuerza, velocidad y resistencia.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#productos" class="inline-flex items-center justify-center bg-gradient-to-r from-sportBlue to-sportBlue-light text-white font-display font-extrabold uppercase px-8 py-4 rounded-xl shadow-lg glow-blue glow-blue-hover transform hover:-translate-y-0.5 transition-all text-xs tracking-widest">
+                        Explorar Colección <i class="fa-solid fa-arrow-right ml-2.5"></i>
+                    </a>
+                    <a href="#ofertas" class="inline-flex items-center justify-center bg-lead-800 hover:bg-lead-700 text-white border border-lead-700 hover:border-sportBlue-electric font-display font-bold uppercase px-8 py-4 rounded-xl transition-all text-xs tracking-widest">
+                        Ver Ofertas
+                    </a>
+                </div>
+
+                <!-- Garantías / Métricas -->
+                <div class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-lead-700/80">
+                    <div>
+                        <p class="font-display font-black text-2xl sm:text-3xl text-sportBlue-electric">+5,000</p>
+                        <p class="text-[11px] text-lead-500 font-semibold uppercase">Productos Top</p>
+                    </div>
+                    <div>
+                        <p class="font-display font-black text-2xl sm:text-3xl text-lead-100">100%</p>
+                        <p class="text-[11px] text-lead-500 font-semibold uppercase">Garantizado</p>
+                    </div>
+                    <div>
+                        <p class="font-display font-black text-2xl sm:text-3xl text-sportBlue-light">24/7</p>
+                        <p class="text-[11px] text-lead-500 font-semibold uppercase">Soporte Atletismo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Categorías Destacadas -->
+    <section id="categorias" class="py-20 bg-navy-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <span class="text-sportBlue-electric font-display font-bold text-xs uppercase tracking-widest">DISCIPLINAS</span>
+                    <h2 class="font-display font-black text-3xl sm:text-4xl uppercase italic text-white mt-1">Categorías Destacadas</h2>
+                </div>
+                <p class="text-lead-300 text-sm max-w-md mt-2 md:mt-0">
+                    Explora equipamiento especializado adaptado a la exigencia de tu deporte.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                
+                <!-- Card Fútbol -->
+                <div onclick="filterByCategory('futbol')" class="group relative h-80 rounded-2xl overflow-hidden cursor-pointer border border-lead-700 hover:border-sportBlue-electric transition-all duration-300 bg-lead-800">
+                    <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=600&q=80" 
+                         alt="Fútbol" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-60">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/40 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <div class="w-10 h-10 rounded-xl bg-sportBlue/20 border border-sportBlue-electric text-sportBlue-electric flex items-center justify-center mb-3 group-hover:bg-sportBlue group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-futbol text-lg"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl uppercase italic text-white group-hover:text-sportBlue-electric transition-colors">Fútbol</h3>
+                        <p class="text-xs text-lead-300 mt-1">Botines, Balones e Indumentaria</p>
+                    </div>
+                </div>
+
+                <!-- Card Running -->
+                <div onclick="filterByCategory('running')" class="group relative h-80 rounded-2xl overflow-hidden cursor-pointer border border-lead-700 hover:border-sportBlue-electric transition-all duration-300 bg-lead-800">
+                    <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=600&q=80" 
+                         alt="Running" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-60">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/40 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <div class="w-10 h-10 rounded-xl bg-sportBlue/20 border border-sportBlue-electric text-sportBlue-electric flex items-center justify-center mb-3 group-hover:bg-sportBlue group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-person-running text-lg"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl uppercase italic text-white group-hover:text-sportBlue-electric transition-colors">Running</h3>
+                        <p class="text-xs text-lead-300 mt-1">Zapatillas y Relojes GPS</p>
+                    </div>
+                </div>
+
+                <!-- Card Training / Gym -->
+                <div onclick="filterByCategory('gym')" class="group relative h-80 rounded-2xl overflow-hidden cursor-pointer border border-lead-700 hover:border-sportBlue-electric transition-all duration-300 bg-lead-800">
+                    <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=600&q=80" 
+                         alt="Training Gym" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-60">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/40 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <div class="w-10 h-10 rounded-xl bg-sportBlue/20 border border-sportBlue-electric text-sportBlue-electric flex items-center justify-center mb-3 group-hover:bg-sportBlue group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-dumbbell text-lg"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl uppercase italic text-white group-hover:text-sportBlue-electric transition-colors">Training</h3>
+                        <p class="text-xs text-lead-300 mt-1">Mancuernas y Ropa Gym</p>
+                    </div>
+                </div>
+
+                <!-- Card Basketball -->
+                <div onclick="filterByCategory('basketball')" class="group relative h-80 rounded-2xl overflow-hidden cursor-pointer border border-lead-700 hover:border-sportBlue-electric transition-all duration-300 bg-lead-800">
+                    <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=600&q=80" 
+                         alt="Basketball" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-60">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/40 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <div class="w-10 h-10 rounded-xl bg-sportBlue/20 border border-sportBlue-electric text-sportBlue-electric flex items-center justify-center mb-3 group-hover:bg-sportBlue group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-basketball text-lg"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl uppercase italic text-white group-hover:text-sportBlue-electric transition-colors">Basketball</h3>
+                        <p class="text-xs text-lead-300 mt-1">Calzado y Balones Pro</p>
+                    </div>
+                </div>
+
+                <!-- Card Ciclismo -->
+                <div onclick="filterByCategory('ciclismo')" class="group relative h-80 rounded-2xl overflow-hidden cursor-pointer border border-lead-700 hover:border-sportBlue-electric transition-all duration-300 bg-lead-800">
+                    <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=600&q=80" 
+                         alt="Ciclismo" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-60">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/40 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <div class="w-10 h-10 rounded-xl bg-sportBlue/20 border border-sportBlue-electric text-sportBlue-electric flex items-center justify-center mb-3 group-hover:bg-sportBlue group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-bicycle text-lg"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl uppercase italic text-white group-hover:text-sportBlue-electric transition-colors">Ciclismo</h3>
+                        <p class="text-xs text-lead-300 mt-1">Cascos y Accesorios</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Catálogo de Productos Filtrable -->
+    <section id="productos" class="py-20 bg-lead-900 border-t border-b border-lead-700/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6">
+                <div>
+                    <span class="text-sportBlue-electric font-display font-bold text-xs uppercase tracking-widest">TIENDA SPORTFIT</span>
+                    <h2 class="font-display font-black text-3xl sm:text-4xl uppercase italic text-white mt-1">Catálogo de Productos</h2>
+                </div>
+
+                <!-- Botones de Filtro por Tipo -->
+                <div class="flex flex-wrap gap-2" id="filter-buttons">
+                    <button onclick="filterByType('todos')" class="filter-btn active bg-sportBlue text-white font-display font-bold text-xs uppercase px-4 py-2.5 rounded-xl transition-all shadow-md">Todos</button>
+                    <button onclick="filterByType('calzado')" class="filter-btn bg-lead-800 hover:bg-lead-700 text-lead-300 font-display font-bold text-xs uppercase px-4 py-2.5 rounded-xl border border-lead-700 transition-all">Calzado</button>
+                    <button onclick="filterByType('ropa')" class="filter-btn bg-lead-800 hover:bg-lead-700 text-lead-300 font-display font-bold text-xs uppercase px-4 py-2.5 rounded-xl border border-lead-700 transition-all">Ropa</button>
+                    <button onclick="filterByType('accesorios')" class="filter-btn bg-lead-800 hover:bg-lead-700 text-lead-300 font-display font-bold text-xs uppercase px-4 py-2.5 rounded-xl border border-lead-700 transition-all">Accesorios</button>
+                    <button onclick="filterByType('equipamiento')" class="filter-btn bg-lead-800 hover:bg-lead-700 text-lead-300 font-display font-bold text-xs uppercase px-4 py-2.5 rounded-xl border border-lead-700 transition-all">Equipamiento</button>
+                </div>
+            </div>
+
+            <!-- Grid de Productos -->
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Inyectado dinámicamente con JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Ofertas Especiales -->
+    <section id="ofertas" class="py-16 bg-gradient-to-r from-navy-900 via-navy-800 to-lead-800 relative overflow-hidden border-b border-lead-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div>
+                <span class="bg-sportBlue/20 text-sportBlue-electric border border-sportBlue-electric/40 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-md">
+                    DESCUENTO DE LA SEMANA
+                </span>
+                <h2 class="font-display font-black text-3xl sm:text-5xl uppercase italic text-white mt-3">
+                    HASTA <span class="text-sportBlue-electric">40% OFF</span> EN ZAPATILLAS DE ALTA GAMA
+                </h2>
+                <p class="text-lead-300 text-sm mt-2 max-w-xl">
+                    Aprovecha nuestras promociones exclusivas en la línea de calzado técnico en tonos azul y gris metalizado.
+                </p>
+            </div>
+            <a href="#productos" onclick="filterByType('calzado')" class="bg-sportBlue hover:bg-sportBlue-light text-white font-display font-extrabold uppercase px-8 py-4 rounded-xl shadow-lg glow-blue transition-all text-xs tracking-wider whitespace-nowrap">
+                Ver Zapatillas en Oferta <i class="fa-solid fa-bolt ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- 5. Carrito de Compras Interactivo (Sidebar / Drawer Lateral) -->
+    <div id="cart-drawer-overlay" onclick="toggleCartDrawer()" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    
+    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full sm:w-96 bg-lead-800 z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col border-l border-lead-700">
+        <!-- Header Carrito -->
+        <div class="p-5 border-b border-lead-700 bg-navy-900 flex items-center justify-between">
+            <h3 class="font-display font-bold text-base uppercase italic text-white flex items-center gap-2">
+                <i class="fa-solid fa-cart-shopping text-sportBlue-electric"></i> Carrito SportFit
+            </h3>
+            <button onclick="toggleCartDrawer()" class="text-lead-300 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Lista de Items -->
+        <div id="cart-items" class="flex-1 overflow-y-auto p-5 space-y-4 custom-scrollbar">
+            <!-- JS agregará items aquí -->
+        </div>
+
+        <!-- Footer / Cálculo del Total -->
+        <div class="p-5 border-t border-lead-700 bg-navy-900">
+            <div class="space-y-2 text-xs text-lead-300 mb-4">
+                <div class="flex justify-between">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal" class="font-bold text-white">$0.00</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Envío:</span>
+                    <span id="cart-shipping" class="text-sportBlue-electric font-bold">Gratis</span>
+                </div>
+                <div class="flex justify-between text-sm text-white font-bold border-t border-lead-700 pt-2">
+                    <span>Total General:</span>
+                    <span id="cart-total" class="text-sportBlue-electric font-display">$0.00</span>
+                </div>
+            </div>
+
+            <button onclick="checkout()" class="w-full bg-gradient-to-r from-sportBlue to-sportBlue-light hover:from-sportBlue-light hover:to-sportBlue text-white font-display font-extrabold uppercase py-3.5 rounded-xl shadow-lg glow-blue transition-all text-xs tracking-wider">
+                Proceder al Pago <i class="fa-solid fa-lock ml-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 6. Modal de Vista Rápida de Producto -->
+    <div id="modal-product" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-lead-800 border border-lead-700 rounded-2xl max-w-2xl w-full p-6 relative overflow-hidden shadow-2xl">
+            <button onclick="toggleModal('modal-product')" class="absolute top-4 right-4 text-lead-300 hover:text-white z-10 bg-navy-900/80 p-2 rounded-full">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="modal-product-content" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Contenido JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast de Notificación -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-sportBlue text-white font-display font-bold text-xs px-5 py-3.5 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-300 z-50 border border-sportBlue-electric">
+        <i class="fa-solid fa-circle-check text-lg text-sportBlue-electric"></i>
+        <span id="toast-message">Producto añadido al carrito</span>
+    </div>
+
+    <!-- 7. Footer Completo -->
+    <footer id="contacto" class="bg-navy-900 text-lead-300 pt-16 pb-8 border-t border-lead-700/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-lead-700/80">
+                
+                <!-- Columna 1: Info SportFit -->
+                <div class="space-y-4">
+                    <a href="#" class="flex items-center gap-3">
+                        <div class="w-9 h-9 bg-sportBlue rounded-lg flex items-center justify-center text-white font-display font-black text-xl">
+                            <i class="fa-solid fa-bolt-lightning text-sm"></i>
+                        </div>
+                        <span class="font-display font-black text-xl uppercase italic text-white">
+                            SPORT<span class="text-sportBlue-electric">FIT</span>
+                        </span>
+                    </a>
+                    <p class="text-xs text-lead-300 leading-relaxed">
+                        Tu tienda de deportes especializada en indumentaria y equipamiento de alto nivel. Azul y plomo como símbolos de resistencia y velocidad.
+                    </p>
+                    <div class="flex gap-3 pt-2">
+                        <a href="#" class="w-9 h-9 rounded-xl bg-lead-800 hover:bg-sportBlue hover:text-white flex items-center justify-center text-lead-300 transition-colors border border-lead-700"><i class="fa-brands fa-facebook-f text-xs"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-xl bg-lead-800 hover:bg-sportBlue hover:text-white flex items-center justify-center text-lead-300 transition-colors border border-lead-700"><i class="fa-brands fa-instagram text-xs"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-xl bg-lead-800 hover:bg-sportBlue hover:text-white flex items-center justify-center text-lead-300 transition-colors border border-lead-700"><i class="fa-brands fa-tiktok text-xs"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-xl bg-lead-800 hover:bg-sportBlue hover:text-white flex items-center justify-center text-lead-300 transition-colors border border-lead-700"><i class="fa-brands fa-youtube text-xs"></i></a>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Enlaces Rápidos -->
+                <div>
+                    <h4 class="font-display font-bold text-white text-xs uppercase tracking-widest mb-4">Navegación</h4>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><a href="#inicio" class="hover:text-sportBlue-electric transition-colors">Inicio</a></li>
+                        <li><a href="#categorias" class="hover:text-sportBlue-electric transition-colors">Categorías</a></li>
+                        <li><a href="#productos" class="hover:text-sportBlue-electric transition-colors">Catálogo</a></li>
+                        <li><a href="#ofertas" class="hover:text-sportBlue-electric transition-colors">Ofertas Especiales</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 3: Soporte y Ayuda -->
+                <div>
+                    <h4 class="font-display font-bold text-white text-xs uppercase tracking-widest mb-4">Soporte</h4>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><a href="#" class="hover:text-sportBlue-electric transition-colors">Preguntas Frecuentes</a></li>
+                        <li><a href="#" class="hover:text-sportBlue-electric transition-colors">Guía de Tallas</a></li>
+                        <li><a href="#" class="hover:text-sportBlue-electric transition-colors">Políticas de Envío</a></li>
+                        <li><a href="#" class="hover:text-sportBlue-electric transition-colors">Devoluciones</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 4: Newsletter -->
+                <div>
+                    <h4 class="font-display font-bold text-white text-xs uppercase tracking-widest mb-4">Boletín Informativo</h4>
+                    <p class="text-xs text-lead-300 mb-3">Recibe ofertas exclusivas directamente en tu correo.</p>
+                    <form onsubmit="handleNewsletter(event)" class="space-y-2">
+                        <input type="email" required placeholder="tu@correo.com" 
+                               class="w-full bg-lead-800 text-xs text-white placeholder-lead-500 rounded-xl py-2.5 px-3 border border-lead-700 focus:outline-none focus:border-sportBlue-electric">
+                        <button type="submit" class="w-full bg-sportBlue hover:bg-sportBlue-light text-white font-display font-bold text-xs uppercase py-2.5 rounded-xl transition-colors">
+                            Suscribirse
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-lead-500">
+                <p>&copy; 2026 SportFit Store. Todos los derechos reservados.</p>
+                <div class="flex items-center gap-4 text-lg text-lead-300">
+                    <i class="fa-brands fa-cc-visa hover:text-white transition-colors" title="Visa"></i>
+                    <i class="fa-brands fa-cc-mastercard hover:text-white transition-colors" title="Mastercard"></i>
+                    <i class="fa-brands fa-cc-paypal hover:text-white transition-colors" title="PayPal"></i>
+                    <i class="fa-brands fa-cc-apple-pay hover:text-white transition-colors" title="Apple Pay"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS de Lógica de la Aplicación -->
+    <script>
+        // Catálogo de Productos (paleta azul y plomo)
+        const products = [
+            {
+                id: 1,
+                name: 'Zapatillas SportFit Carbon Velocity',
+                type: 'calzado',
+                category: 'running',
+                price: 149.99,
+                oldPrice: 189.99,
+                rating: 5,
+                reviews: 42,
+                image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80',
+                colors: ['Azul Eléctrico', 'Plomo Metalizado'],
+                sizes: ['39', '40', '41', '42', '43'],
+                desc: 'Zapatillas para maratón con placa de carbono y amortiguación reactiva en tono azul deportivo.'
+            },
+            {
+                id: 2,
+                name: 'Polera Térmica Pro Compression Blue',
+                type: 'ropa',
+                category: 'gym',
+                price: 34.99,
+                oldPrice: 45.00,
+                rating: 4.8,
+                reviews: 29,
+                image: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&w=600&q=80',
+                colors: ['Azul Marino', 'Gris Plomo'],
+                sizes: ['S', 'M', 'L', 'XL'],
+                desc: 'Polera de compresión muscular con tecnología de secado rápido DryFit.'
+            },
+            {
+                id: 3,
+                name: 'Balón Oficial Match Pro League',
+                type: 'equipamiento',
+                category: 'futbol',
+                price: 49.99,
+                oldPrice: 65.00,
+                rating: 4.9,
+                reviews: 35,
+                image: 'https://images.unsplash.com/photo-1614632537190-23e4146777db?auto=format&fit=crop&w=600&q=80',
+                colors: ['Blanco/Azul', 'Plomo/Negro'],
+                sizes: ['N° 5'],
+                desc: 'Balón cosido termosellado para máximo control de trayectoria y durabilidad.'
+            },
+            {
+                id: 4,
+                name: 'Mancuernas Hexagonales 12kg Plomo',
+                type: 'equipamiento',
+                category: 'gym',
+                price: 69.99,
+                oldPrice: 85.00,
+                rating: 4.7,
+                reviews: 18,
+                image: 'https://images.unsplash.com/photo-1638536532686-d610adfc8e5c?auto=format&fit=crop&w=600&q=80',
+                colors: ['Plomo Oscuro'],
+                sizes: ['12 kg'],
+                desc: 'Mancuernas de hierro fundido recubiertas en caucho con agarradera cromatica.'
+            },
+            {
+                id: 5,
+                name: 'Casco Aero Ciclismo Metallic Gray',
+                type: 'accesorios',
+                category: 'ciclismo',
+                price: 79.99,
+                oldPrice: 99.99,
+                rating: 4.9,
+                reviews: 51,
+                image: 'https://images.unsplash.com/photo-1559348349-86f1f65817fe?auto=format&fit=crop&w=600&q=80',
+                colors: ['Plomo Plata', 'Azul Mate'],
+                sizes: ['M', 'L'],
+                desc: 'Casco ultraligero con canalización de aire y sistema MIPS de impacto.'
+            },
+            {
+                id: 6,
+                name: 'Zapatillas Basketball High Dunk',
+                type: 'calzado',
+                category: 'basketball',
+                price: 139.99,
+                oldPrice: 170.00,
+                rating: 5,
+                reviews: 64,
+                image: 'https://images.unsplash.com/photo-1579338559194-a162d19bf842?auto=format&fit=crop&w=600&q=80',
+                colors: ['Azul/Plomo', 'Negro/Azul'],
+                sizes: ['40', '41', '42', '43', '44'],
+                desc: 'Suela de tracción agresiva con amortiguación de cámara de aire.'
+            },
+            {
+                id: 7,
+                name: 'Smartwatch SportFit GPS Pro',
+                type: 'accesorios',
+                category: 'running',
+                price: 119.99,
+                oldPrice: 150.00,
+                rating: 4.8,
+                reviews: 88,
+                image: 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=600&q=80',
+                colors: ['Plomo Titanio', 'Azul Noche'],
+                sizes: ['Única'],
+                desc: 'Monitor cardiaco, GPS integrado y resistencia al agua 50m.'
+            },
+            {
+                id: 8,
+                name: 'Short de Entrenamiento Flex Gray',
+                type: 'ropa',
+                category: 'gym',
+                price: 27.99,
+                oldPrice: 35.00,
+                rating: 4.6,
+                reviews: 22,
+                image: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80',
+                colors: ['Plomo Claro', 'Azul Deportivo'],
+                sizes: ['S', 'M', 'L'],
+                desc: 'Short elastizado con bolsillos con cierre de seguridad.'
+            }
+        ];
+
+        // Estado del Carrito
+        let cart = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts(products);
+            document.getElementById('search-input').addEventListener('input', handleSearch);
+            document.getElementById('search-input-mobile').addEventListener('input', handleSearch);
+        });
+
+        // Renderizado de productos en catálogo
+        function renderProducts(items) {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
+
+            if (items.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-lead-300">
+                        <i class="fa-solid fa-box-open text-4xl mb-3 text-lead-500"></i>
+                        <p class="font-display font-bold">No se encontraron productos.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            items.forEach(product => {
+                const stars = Array(5).fill(0).map((_, i) => 
+                    `<i class="fa-solid fa-star ${i < Math.floor(product.rating) ? 'text-amber-400' : 'text-lead-700'}"></i>`
+                ).join('');
+
+                const productCard = document.createElement('div');
+                productCard.className = 'group bg-lead-800 rounded-2xl border border-lead-700 hover:border-sportBlue-electric/80 transition-all duration-300 flex flex-col overflow-hidden shadow-lg';
+                productCard.innerHTML = `
+                    <div class="relative h-56 bg-navy-900 overflow-hidden cursor-pointer" onclick="openProductModal(${product.id})">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90">
+                        <button onclick="event.stopPropagation(); openProductModal(${product.id})" class="absolute top-3 right-3 bg-navy-900/80 hover:bg-sportBlue text-white p-2.5 rounded-xl backdrop-blur-md transition-colors text-xs border border-lead-700">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+
+                    <div class="p-5 flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] font-bold uppercase text-sportBlue-electric tracking-widest">${product.type}</span>
+                            <h3 onclick="openProductModal(${product.id})" class="font-display font-bold text-sm text-white hover:text-sportBlue-electric transition-colors mt-1 cursor-pointer line-clamp-1">${product.name}</h3>
+                            
+                            <div class="flex items-center gap-1.5 text-xs my-2">
+                                <div class="flex text-[10px]">${stars}</div>
+                                <span class="text-lead-300 text-[11px]">(${product.reviews})</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-3 border-t border-lead-700/80 flex items-center justify-between">
+                            <div>
+                                <span class="text-[11px] text-lead-500 line-through">$${product.oldPrice.toFixed(2)}</span>
+                                <p class="font-display font-black text-base text-white">$${product.price.toFixed(2)}</p>
+                            </div>
+                            <button onclick="addToCart(${product.id})" class="bg-sportBlue hover:bg-sportBlue-light text-white px-3.5 py-2 rounded-xl transition-all font-bold flex items-center gap-1.5 text-xs">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                <span class="hidden sm:inline">Añadir</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(productCard);
+            });
+        }
+
+        // Filtro por Categoría Principal
+        function filterByCategory(category) {
+            const filtered = products.filter(p => p.category === category);
+            renderProducts(filtered);
+            document.getElementById('productos').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Filtro por Tipo (Botones)
+        function filterByType(type) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                if (btn.innerText.toLowerCase() === type.toLowerCase() || (type === 'todos' && btn.innerText === 'TODOS')) {
+                    btn.className = 'filter-btn active bg-sportBlue text-white font-display font-bold text-xs uppercase px-4 py-2.5 rounded-xl transition-all shadow-md';
+                } else {
+                    btn.className = 'filter-btn bg-lead-800 hover:bg-lead-700 text-lead-300 font-display font-bold text-xs uppercase px-4 py-2.5 rounded-xl border border-lead-700 transition-all';
+                }
+            });
+
+            if (type === 'todos') {
+                renderProducts(products);
+            } else {
+                const filtered = products.filter(p => p.type === type);
+                renderProducts(filtered);
+            }
+        }
+
+        // Buscador
+        function handleSearch(e) {
+            const query = e.target.value.toLowerCase();
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(query) || 
+                p.type.toLowerCase().includes(query) ||
+                p.category.toLowerCase().includes(query)
+            );
+            renderProducts(filtered);
+        }
+
+        // Carrito de compras
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existing = cart.find(item => item.id === productId);
+
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCartUI();
+            showToast(`"${product.name}" añadido al carrito`);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        function changeQuantity(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCartUI();
+                }
+            }
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartSubtotal = document.getElementById('cart-subtotal');
+            const cartTotal = document.getElementById('cart-total');
+
+            const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+            cartCount.innerText = totalItems;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-12 text-lead-300">
+                        <i class="fa-solid fa-cart-arrow-down text-3xl mb-2 text-lead-500"></i>
+                        <p class="font-display font-bold text-sm">Tu carrito está vacío</p>
+                    </div>
+                `;
+                cartSubtotal.innerText = '$0.00';
+                cartTotal.innerText = '$0.00';
+                return;
+            }
+
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+
+                const cartItemEl = document.createElement('div');
+                cartItemEl.className = 'flex items-center gap-3 bg-navy-900 p-3 rounded-xl border border-lead-700';
+                cartItemEl.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="w-14 h-14 object-cover rounded-lg">
+                    <div class="flex-1">
+                        <h4 class="font-display font-bold text-xs text-white line-clamp-1">${item.name}</h4>
+                        <p class="text-xs text-sportBlue-electric font-bold mt-0.5">$${item.price.toFixed(2)}</p>
+                        
+                        <div class="flex items-center gap-2 mt-2">
+                            <button onclick="changeQuantity(${item.id}, -1)" class="w-5 h-5 bg-lead-800 text-white rounded hover:bg-sportBlue flex items-center justify-center text-xs font-bold">-</button>
+                            <span class="text-xs font-bold text-white">${item.quantity}</span>
+                            <button onclick="changeQuantity(${item.id}, 1)" class="w-5 h-5 bg-lead-800 text-white rounded hover:bg-sportBlue flex items-center justify-center text-xs font-bold">+</button>
+                        </div>
+                    </div>
+                    <button onclick="removeFromCart(${item.id})" class="text-lead-500 hover:text-red-400 p-1">
+                        <i class="fa-solid fa-trash-can text-xs"></i>
+                    </button>
+                `;
+                cartItemsContainer.appendChild(cartItemEl);
+            });
+
+            cartSubtotal.innerText = `$${total.toFixed(2)}`;
+            cartTotal.innerText = `$${total.toFixed(2)}`;
+        }
+
+        // Toggles & Modales
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('cart-drawer-overlay');
+            drawer.classList.toggle('translate-x-full');
+            overlay.classList.toggle('opacity-0');
+            overlay.classList.toggle('pointer-events-none');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function toggleModal(modalId) {
+            document.getElementById(modalId).classList.toggle('hidden');
+        }
+
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            const content = document.getElementById('modal-product-content');
+
+            content.innerHTML = `
+                <div class="rounded-xl overflow-hidden bg-navy-900 h-56 md:h-full">
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+                </div>
+                <div class="flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] font-bold uppercase text-sportBlue-electric tracking-widest">${product.type}</span>
+                        <h3 class="font-display font-black text-xl text-white mt-1">${product.name}</h3>
+                        <p class="text-lead-300 text-xs my-3 leading-relaxed">${product.desc}</p>
+                        
+                        <div class="mb-3">
+                            <span class="text-xs text-lead-300 font-bold uppercase block mb-1">Colores:</span>
+                            <div class="flex gap-2">
+                                ${product.colors.map(c => `<span class="bg-navy-900 border border-lead-700 text-xs text-lead-100 px-2.5 py-1 rounded-md">${c}</span>`).join('')}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <span class="text-xs text-lead-300 font-bold uppercase block mb-1">Tallas / Tamaños:</span>
+                            <div class="flex gap-2">
+                                ${product.sizes.map(s => `<span class="bg-navy-900 border border-lead-700 text-xs text-lead-100 px-2.5 py-1 rounded-md">${s}</span>`).join('')}
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="font-display font-black text-2xl text-white">$${product.price.toFixed(2)}</span>
+                            <span class="text-xs text-lead-500 line-through">$${product.oldPrice.toFixed(2)}</span>
+                        </div>
+                    </div>
+
+                    <button onclick="addToCart(${product.id}); toggleModal('modal-product');" class="w-full bg-sportBlue hover:bg-sportBlue-light text-white font-display font-extrabold uppercase py-3 rounded-xl transition-colors text-xs">
+                        Añadir al Carrito
+                    </button>
+                </div>
+            `;
+            toggleModal('modal-product');
+        }
+
+        // Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = message;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+
+        function handleNewsletter(e) {
+            e.preventDefault();
+            showToast('¡Gracias por suscribirte!');
+            e.target.reset();
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                showToast('El carrito está vacío');
+                return;
+            }
+            showToast('¡Redirigiendo a pasarela de pago!');
+            cart = [];
+            updateCartUI();
+            toggleCartDrawer();
+        }
+    </script>
+</body>
+</html>
